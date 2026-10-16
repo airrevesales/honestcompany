@@ -1,0 +1,862 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에어레브 Airreve</title>
+<meta name="description" content="We create lifestyle essentials for everyday comfort, from bedding to body care, with skin-friendly materials and natural-origin ingredients.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{
+  --accent:#1565c0; --accent-deep:#0d47a1; --accent-light:#64b5f6; --wash:#e3f2fd;
+  --ink:#14131a; --charcoal:#26252e; --muted:#6a6878;
+  --bg:#ffffff; --bg-alt:#f5f5f5; --card:#ffffff; --line:rgba(20,19,26,.14);
+  --inverse:#14131a; --on-ink:#f1f0f5; --ok:#1f7a5f; --err:#d93025;
+  --photo:#eeeeee; --veil:rgba(255,255,255,.55);
+  --r-btn:20px; --r-media:15px; --r-big:32px;
+  --shadow:0 24px 48px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --accent:#29b6f6; --accent-deep:#4fc3f7; --accent-light:#81d4fa; --wash:#0e2c3a;
+    --ink:#eceff1; --charcoal:#cfd8dc; --muted:#b0bec5;
+    --bg:#121212; --bg-alt:#1a1a1a; --card:#1e1e1e; --line:rgba(236,239,241,.14);
+    --inverse:#0a0a0a; --on-ink:#eceff1; --ok:#4db6ac; --err:#ff6b5e;
+    --photo:#2a2a2a; --veil:rgba(10,12,14,.62); --shadow:0 24px 48px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --accent:#29b6f6; --accent-deep:#4fc3f7; --accent-light:#81d4fa; --wash:#0e2c3a;
+  --ink:#eceff1; --charcoal:#cfd8dc; --muted:#b0bec5;
+  --bg:#121212; --bg-alt:#1a1a1a; --card:#1e1e1e; --line:rgba(236,239,241,.14);
+  --inverse:#0a0a0a; --on-ink:#eceff1; --ok:#4db6ac; --err:#ff6b5e;
+  --photo:#2a2a2a; --veil:rgba(10,12,14,.62); --shadow:0 24px 48px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.5;letter-spacing:-.01em;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+/* nav */
+.nav-outer{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:24px;min-height:60px}
+.brand{font-size:17px;font-weight:600;letter-spacing:-.03em;padding-right:24px;border-right:1px solid var(--line);white-space:nowrap}
+.nav-links{display:flex;gap:22px}
+.nav-links a{font-size:15px;color:var(--muted)}
+.nav-links a:hover,.nav-links a.on{color:var(--accent-deep)}
+.spacer{flex:1}
+.lang{display:flex;gap:4px;align-items:center;font-size:14px;color:var(--muted)}
+.lang button{background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;padding:2px}
+.lang button.on{color:var(--accent-deep);font-weight:600}
+@media(max-width:860px){.nav-links{display:none}.brand{border:0;padding:0}}
+
+/* common */
+section{padding:72px 0}
+section+section{border-top:1px solid var(--line)}
+@media(max-width:600px){section{padding:44px 0}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h1,h2,h3{font-weight:500;letter-spacing:-.025em;margin:0}
+h1{font-size:clamp(36px,6vw,64px);line-height:1.05}
+h2{font-size:clamp(26px,3.6vw,36px);line-height:1.22}
+h3{font-size:20px;line-height:1.3}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:32px}
+.head h2{margin-top:12px}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--r-btn);border:1.5px solid var(--accent);background:var(--accent);color:#fff;font:inherit;font-weight:500;letter-spacing:-.03em;cursor:pointer;white-space:nowrap;transition:background .12s}
+.btn:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.btn.ghost{background:var(--veil);color:var(--accent-deep)}
+.btn.ghost:hover{background:var(--wash)}
+.btn.sm{height:40px;padding:0 16px;font-size:14px}
+.btn.light{background:var(--card);border-color:var(--card);color:var(--accent-deep)}
+:root:not([data-theme="light"]) .btn:not(.ghost):not(.light){color:#212121}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .btn:not(.ghost):not(.light){color:#fff}}
+:root[data-theme="light"] .btn:not(.ghost):not(.light){color:#fff}
+.textlink{color:var(--accent-deep);font-weight:500;border-bottom:1px solid var(--accent-light);padding-bottom:3px}
+.textlink:hover{color:var(--accent)}
+
+/* hero */
+.hero{position:relative;min-height:520px;display:flex;align-items:center;text-align:center;padding:96px 0;background:var(--photo) url("Images/background.png") center/cover no-repeat}
+@media(max-width:1024px){.hero{background-image:url("Images/background.png")}}
+.hero::before{content:"";position:absolute;inset:0;background:var(--veil)}
+.hero .wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;width:100%}
+.hero p{font-size:19px;line-height:28px;color:var(--charcoal);margin:0}
+.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+@media(max-width:600px){.hero{min-height:420px;padding:56px 0}.cta{flex-direction:column;align-self:stretch}.cta .btn{width:100%}}
+
+/* about */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:24px}}
+.about-text{font-size:18px;line-height:27px;white-space:pre-line;margin:0 0 20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:48px}
+.stat{padding:24px 16px 0 0}
+.stat+.stat{border-left:1px solid var(--line);padding-left:16px}
+.stat b{display:block;font-size:28px;font-weight:500;letter-spacing:-.02em}
+.stat span{font-size:13px;color:var(--muted)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0;padding-left:0}.stat{padding-bottom:16px}}
+
+/* certs & markets */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.cert{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.cert b{font-weight:500;font-size:15px}
+.cert span{font-size:12px;color:var(--muted)}
+.market{display:grid;grid-template-columns:160px 1fr;gap:16px;border-top:1px solid var(--line);padding:16px 0}
+.market:last-child{border-bottom:1px solid var(--line)}
+.market b{font-weight:600}
+.market span{color:var(--muted)}
+@media(max-width:600px){.market{grid-template-columns:1fr;gap:4px}}
+
+/* products */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.pcard{display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.pcard .media{aspect-ratio:1/1;border-radius:24px;overflow:hidden;background:var(--photo)}
+.pcard .media img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.pcard:hover .media img{transform:scale(1.03)}
+.pcard h3{font-size:18px}
+.pcard p{margin:0;font-size:13px;line-height:18px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 12px;border-radius:999px;background:rgba(127,127,127,.1);font-size:12px;font-weight:500;color:var(--charcoal)}
+.tag.ok::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.pspec{border-top:1px solid var(--line);padding-top:8px;display:flex;flex-direction:column;gap:3px}
+.pspec span{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted)}
+.pspec b{color:var(--ink);font-weight:500;text-align:right}
+.pcard .acts{display:flex;gap:8px;margin-top:4px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:60;display:none}
+.modal.open{display:block}
+.scrim{position:absolute;inset:0;background:rgba(17,17,20,.5)}
+.panel{position:absolute;inset:4vh 50% auto auto;transform:translateX(50%);width:min(1040px,94vw);max-height:92vh;overflow:auto;background:var(--bg);border-radius:24px;box-shadow:0 70px 110px rgba(0,0,0,.25);padding:32px}
+.close{position:sticky;top:0;float:right;background:var(--card);border:1px solid var(--line);border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer;color:var(--ink);z-index:2}
+.detail{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;clear:both}
+@media(max-width:900px){.detail{grid-template-columns:1fr;gap:24px}.panel{inset:0;transform:none;width:100%;max-height:none;height:100%;border-radius:0;padding:20px 16px}}
+.gal-main{aspect-ratio:4/3;border-radius:var(--r-media);overflow:hidden;background:var(--photo)}
+.gal-main img{width:100%;height:100%;object-fit:contain}
+.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.thumbs button{aspect-ratio:1/1;padding:0;border:2px solid transparent;border-radius:6px;overflow:hidden;background:var(--photo);cursor:pointer}
+.thumbs button.on{border-color:var(--accent)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.info{display:flex;flex-direction:column;gap:14px}
+.terms{background:var(--card);border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,.06);padding:4px 20px}
+.term{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.term:last-child{border-bottom:0}
+.term span{color:var(--muted)}
+.term b{font-weight:500;text-align:right}
+.spec-table{width:100%;border-collapse:collapse;font-size:14px}
+.spec-table th,.spec-table td{text-align:left;padding:11px 12px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.spec-table th{color:var(--muted);font-weight:400;white-space:nowrap;width:36%}
+.spec-table td{font-weight:500}
+.desc{white-space:pre-line;color:var(--charcoal);font-size:15px;line-height:24px;max-width:720px}
+.detail-body{margin-top:40px;display:flex;flex-direction:column;gap:20px}
+
+/* links */
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.link{display:flex;align-items:center;gap:14px;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;transition:border-color .15s}
+.link:hover{border-color:var(--accent)}
+.link .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--wash);color:var(--accent-deep);display:grid;place-items:center}
+.link b{display:block;font-weight:600;font-size:15px}
+.link small{display:block;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+
+/* faq */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:500;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--muted);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 20px;color:var(--muted);white-space:pre-line;max-width:720px}
+
+/* quote / form */
+.quote{background:var(--inverse);color:var(--on-ink);border-radius:var(--r-big);padding:56px;display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+.quote .eyebrow,.quote h2{color:var(--on-ink)}
+.quote .lead{color:rgba(241,240,245,.75);margin:16px 0 28px}
+.contact-list{display:flex;flex-direction:column;gap:12px;font-size:14px;color:rgba(241,240,245,.75)}
+.contact-list b{color:var(--on-ink);font-weight:600;display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.contact-list a:hover{color:var(--on-ink);text-decoration:underline}
+@media(max-width:900px){.quote{grid-template-columns:1fr;padding:28px 20px;gap:28px;border-radius:24px}}
+.formbox{background:var(--bg);color:var(--ink);border-radius:20px;padding:8px}
+.q{padding:18px 18px;border-bottom:1px solid var(--line)}
+.q:last-of-type{border-bottom:0}
+.q.invalid{background:color-mix(in srgb,var(--err) 7%,transparent);border-radius:12px}
+.q .title{display:block;font-weight:600;font-size:15px;margin-bottom:4px}
+.req{color:var(--err);margin-left:2px}
+.help{font-size:13px;color:var(--muted);margin:0 0 10px}
+.q input[type=text],.q input[type=email],.q input[type=tel],.q input[type=number],.q input[type=date],.q select,.q textarea{width:100%;height:46px;font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:0 14px}
+.q textarea{height:120px;padding:12px 14px;resize:vertical}
+.q input:focus,.q select:focus,.q textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--wash)}
+.opt{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;font-size:15px}
+.opt input[type=radio],.opt input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;flex:none}
+.opt input[type=text]{height:36px!important;flex:1}
+.err{display:none;color:var(--err);font-size:13px;margin-top:8px}
+.q.invalid .err{display:block}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px}
+.btn-reset{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;text-decoration:underline;cursor:pointer}
+.done{text-align:center;padding:48px 20px}
+.done .check{width:56px;height:56px;border-radius:50%;background:var(--wash);color:var(--accent-deep);display:grid;place-items:center;font-size:28px;margin:0 auto 16px}
+
+/* footer */
+footer{background:var(--inverse);color:var(--on-ink);padding:64px 0 32px;margin-top:96px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:48px}
+@media(max-width:800px){.fgrid{grid-template-columns:1fr;gap:28px}footer{margin-top:48px}}
+.fbrand{font-size:22px;font-weight:500;margin-bottom:12px}
+.fhead{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.flist{display:flex;flex-direction:column;gap:10px;font-size:14px;color:rgba(241,240,245,.72)}
+.flist a:hover{color:var(--on-ink)}
+.legal{border-top:1px solid rgba(255,255,255,.2);margin-top:48px;padding-top:20px;font-size:12px;color:rgba(241,240,245,.55)}
+</style>
+</head>
+<body>
+
+<div class="nav-outer">
+  <div class="wrap nav">
+    <a class="brand" href="#top" data-bind="company.name">에어레브</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" data-i18n="nav.about">회사 소개</a>
+      <a href="#products" data-i18n="nav.products">제품</a>
+      <a href="#links" data-i18n="nav.links">관련 링크</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#inquiry" data-i18n="nav.inquiry">견적 문의</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="lang"><button type="button" data-lang="en">EN</button>/<button type="button" data-lang="ko" class="on">KO</button></span>
+  </div>
+</div>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow" data-bind="company.eyebrow">Cosmetic · 대한민국</span>
+      <h1 data-bind="company.name">에어레브</h1>
+      <p data-bind="company.tagline">Gentle on skin. Considered in every detail.</p>
+      <div class="cta">
+        <a class="btn" href="#products" data-i18n="hero.browse">제품 둘러보기</a>
+        <a class="btn ghost" href="#inquiry" data-i18n="hero.quote">견적 문의</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <span class="eyebrow" data-i18n="about.eyebrow">회사</span>
+          <h2 style="margin-top:12px">About Us</h2>
+        </div>
+        <div>
+          <p class="about-text" data-bind="company.about">We create lifestyle essentials for everyday comfort, from bedding to body care, with skin-friendly materials and natural-origin ingredients.
+
+With a trusted network of Korean manufacturers, OEM·ODM inquiries are welcome.</p>
+          <a class="textlink" href="#company" data-i18n="about.more">회사 정보 자세히 보기 →</a>
+        </div>
+      </div>
+      <div class="stats" id="stats"><div class="stat"><b>2018</b><span>회사 설립</span></div><div class="stat"><b>3천만 개</b><span>연간 생산 능력</span></div><div class="stat"><b>10</b><span>인증 · 시험 성적</span></div><div class="stat"><b>8</b><span>판매 국가</span></div></div>
+    </div>
+  </section>
+
+  <!-- COMPANY: certifications / markets / history / location -->
+  <section id="company">
+    <div class="wrap">
+      <div class="head"><div><span class="eyebrow" data-i18n="cert.eyebrow">인증</span><h2 data-i18n="cert.title">인증 및 시험 성적</h2></div></div>
+      <div class="cert-grid" id="certs"><div class="cert"><b>ISO 9001:2015</b><span>국제 인증기관</span></div><div class="cert"><b>OEKO-TEX® STANDARD 100</b><span>OEKO-TEX®</span></div><div class="cert"><b>ECOCERT: Organic Bamboo Raw Material</b><span>ECOCERT</span></div><div class="cert"><b>Fabric Basic Quality Test</b><span>FITI Testing &amp; Research Institute</span></div><div class="cert"><b>Cooling Performance Test: Contact &amp; Absorption Cooling</b><span>FITI Testing &amp; Research Institute</span></div><div class="cert"><b>Safety Test Report: Hypochlorous Acid Solution Applied to Wet Towel Base</b><span>Korea Testing Certification Institute (KTC)</span></div><div class="cert"><b>Human Patch Test: Primary Skin Irritation</b><span>Global Cosmeceutical Center by Semyung University</span></div><div class="cert"><b>Material Safety Data Sheet (MSDS)</b></div><div class="cert"><b>Cosmetics Manufacturing Business Registration</b><span>Ministry of Food and Drug Safety (MFDS), Republic of Korea</span></div><div class="cert"><b>Cosmetics Responsible Seller Registration</b><span>Ministry of Food and Drug Safety (MFDS), Republic of Korea</span></div></div>
+
+      <div class="two" style="margin-top:72px">
+        <div>
+          <span class="eyebrow" data-i18n="market.eyebrow">수출 시장</span>
+          <h2 style="margin:12px 0 24px" data-i18n="market.title">판매 채널</h2>
+          <div id="markets"><div class="market"><b>Shopee</b><span>Singapore, Taiwan, Thailand, Malaysia, Vietnam, Philippines, Mexico</span></div><div class="market"><b>한국</b><span>Coupang, Naver / 500+ positive reviews</span></div></div>
+        </div>
+        <div>
+          <span class="eyebrow" data-i18n="info.eyebrow">회사 정보</span>
+          <h2 style="margin:12px 0 24px" data-i18n="info.title">회사 정보</h2>
+          <div id="facts"><div class="market"><b>업종</b><span>Cosmetic</span></div><div class="market"><b>국가</b><span>대한민국</span></div><div class="market"><b>설립</b><span>2018</span></div><div class="market"><b>생산 능력</b><span>30 million units / year</span></div><div class="market"><b>OEM · ODM</b><span>문의 가능</span></div><div class="market"><b>본사</b><span>경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow" data-i18n="products.eyebrow">제품</span><h2 data-i18n="products.title">제품 라인업</h2></div>
+        <span class="muted" id="pcount">총 2개 제품</span>
+      </div>
+      <div class="products" id="productList">
+    <article class="pcard" data-open="0">
+      <div class="media"><img src="Images/item.png" alt="KOOL UP Shower Roll Body Refresh" loading="lazy"></div>
+      <div class="tags"><span class="tag">추천</span><span class="tag">Wet wipes</span><span class="tag ok">샘플 가능</span></div>
+      <h3>KOOL UP Shower Roll Body Refresh</h3>
+      <p>물 없이 한 장으로 전신 샤워 가능한 샤워롤</p>
+      <div class="pspec">
+        <span>최소 주문 수량 (MOQ)<b>30</b></span>
+        <span>리드타임<b>2-4 weeks</b></span>
+        <span>원산지<b>Made in Korea</b></span>
+      </div>
+      <div class="acts">
+        <button class="btn sm" type="button" data-quote="0">견적 요청</button>
+        <button class="btn sm ghost" type="button" data-open="0">상세 보기</button>
+      </div>
+    </article>
+    <article class="pcard" data-open="1">
+      <div class="media"><img src="Images/item.png" alt="KOOL UP Shower Roll Body Refresh (Sample)" loading="lazy"></div>
+      <div class="tags"><span class="tag">Wet wipes</span><span class="tag ok">샘플 가능</span></div>
+      <h3>KOOL UP Shower Roll Body Refresh (Sample)</h3>
+      <p>물 없이 한 장으로 전신 샤워 가능한 샤워롤 (샘플)</p>
+      <div class="pspec">
+        <span>최소 주문 수량 (MOQ)<b>1</b></span>
+        <span>리드타임<b>2-4 weeks</b></span>
+        <span>원산지<b>Made in Korea</b></span>
+      </div>
+      <div class="acts">
+        <button class="btn sm" type="button" data-quote="1">견적 요청</button>
+        <button class="btn sm ghost" type="button" data-open="1">상세 보기</button>
+      </div>
+    </article></div>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section id="links">
+    <div class="wrap">
+      <div class="head"><div><span class="eyebrow" data-i18n="links.eyebrow">링크</span><h2 data-i18n="links.title">회사 관련 링크</h2></div></div>
+      <div class="links" id="linkList"><a class="link" href="mailto:c6079@honestm.co.kr" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z"></path><path d="m3 7 9 6 9-6"></path></svg></span><span><b>이메일</b><small>c6079@honestm.co.kr</small></span></a><a class="link" href="https://wa.me/821062214199" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path><path d="M9 9.5c.3 1.8 1.7 3.3 3.5 3.8l1-1 2 .8v1.4c-3.6.3-6.9-3-6.6-6.6H10l.8 2z"></path></svg></span><span><b>WhatsApp</b><small>+82 10 6221 4199</small></span></a><a class="link" href="https://www.linkedin.com/in/hyejun-lee-329954429" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"></path></svg></span><span><b>LinkedIn</b><small>hyejun-lee-329954429</small></span></a><a class="link" href="http://www.honestm.co.kr/" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span><b>회사 홈페이지</b><small>www.honestm.co.kr</small></span></a><a class="link" href="tel:023358008" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></span><span><b>전화</b><small>02-335-8008</small></span></a><a class="link" href="https://maps.google.com/?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B3%A0%EC%96%91%EC%8B%9C%20%EB%8D%95%EC%96%91%EA%B5%AC%20%ED%96%A5%EA%B8%B0%EB%A1%9C182%20%ED%98%84%EB%8C%80%ED%85%8C%EB%9D%BC%ED%83%80%EC%9B%8C%ED%96%A5%EB%8F%99%20T201%2C%20T202%2C%20HL129" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span><span><b>주소</b><small>경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129</small></span></a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head"><div><span class="eyebrow">FAQ</span><h2 data-i18n="faq.title">자주 묻는 질문</h2></div></div>
+      <div class="faq" id="faqList"><details><summary>OEM · ODM 생산이 가능한가요?</summary><p>네. 신뢰할 수 있는 국내 제조사 네트워크를 갖추고 있어 OEM·ODM 문의를 환영합니다. 아래 문의 양식에서 '문의 유형 → OEM / ODM'을 선택해 주세요.</p></details><details><summary>MOQ(최소 주문 수량)는 어떻게 되나요?</summary><p>KOOL UP 샤워롤 본품은 30, 샘플은 1부터 주문 가능합니다. 카톤당 30세트(120개) 포장입니다.</p></details><details><summary>리드타임은 어떻게 되나요?</summary><p>통상 2~4주 소요됩니다. 수량과 사양에 따라 달라질 수 있으니 견적 요청 시 희망 납기일을 함께 알려 주세요.</p></details><details><summary>샘플을 받아볼 수 있나요?</summary><p>네, 샘플 제공이 가능합니다. 문의 유형에서 '샘플 요청'을 선택해 주세요.</p></details><details><summary>KOOL UP 제품의 간단한 사양을 알려주세요.</summary><p>670×320mm 대형 롤 타입 시트, 천연 스펀레이스 크로스 헴프 엠보 원단(90gsm), 개별 포장 / 4매입 삼방 파우치(260×230mm)입니다. 제품 카드의 '상세 보기'에서 전체 사양을 확인하세요.</p></details></div>
+    </div>
+  </section>
+
+  <!-- INQUIRY -->
+  <section id="inquiry">
+    <div class="wrap">
+      <div class="quote">
+        <div>
+          <span class="eyebrow" data-i18n="form.eyebrow">견적 문의</span>
+          <h2 style="margin-top:12px" data-i18n="form.title">궁금한 점과 견적 요청.</h2>
+          <p class="lead" data-i18n="form.desc">필요한 내용을 알려 주시면 정보나 견적으로 답해 드립니다.</p>
+          <div class="contact-list" id="contactList"><div><b>이메일</b><a href="mailto:c6079@honestm.co.kr" target="_blank" rel="noopener">c6079@honestm.co.kr</a></div><div><b>WhatsApp</b><a href="https://wa.me/821062214199" target="_blank" rel="noopener">+82 10 6221 4199</a></div><div><b>LinkedIn</b><a href="https://www.linkedin.com/in/hyejun-lee-329954429" target="_blank" rel="noopener">hyejun-lee-329954429</a></div><div><b>전화</b><a href="tel:023358008" target="_blank" rel="noopener">02-335-8008</a></div></div>
+        </div>
+        <div class="formbox">
+          <form id="inqForm" novalidate="" action="mailto:c6079@honestm.co.kr" method="post" enctype="text/plain"><div class="q" data-q="company"><label class="title" for="f_company">회사명<span class="req">*</span></label><input id="f_company" name="company" type="text"><div class="err"></div></div><div class="q" data-q="name"><label class="title" for="f_name">담당자 성함 / 직함<span class="req">*</span></label><input id="f_name" name="name" type="text"><div class="err"></div></div><div class="q" data-q="email"><label class="title" for="f_email">이메일<span class="req">*</span></label><input id="f_email" name="email" type="email"><div class="err"></div></div><div class="q" data-q="phone"><label class="title" for="f_phone">전화 / WhatsApp</label><input id="f_phone" name="phone" type="tel"><div class="err"></div></div><div class="q" data-q="country"><label class="title" for="f_country">국가<span class="req">*</span></label><select id="f_country" name="country"><option value="">선택하세요</option><option>Korea</option><option>Singapore</option><option>Taiwan</option><option>Thailand</option><option>Malaysia</option><option>Vietnam</option><option>Philippines</option><option>Mexico</option><option>USA</option><option>Japan</option><option>China</option><option>Other</option></select><div class="err"></div></div><div class="q" data-q="type"><label class="title" for="f_type">문의 유형<span class="req">*</span></label><label class="opt"><input type="radio" name="type" value="0"><span>견적 요청</span></label><label class="opt"><input type="radio" name="type" value="1"><span>샘플 요청</span></label><label class="opt"><input type="radio" name="type" value="2"><span>OEM / ODM</span></label><label class="opt"><input type="radio" name="type" value="3"><span>유통 / 대리점</span></label><label class="opt"><input type="radio" name="type" value="__other"><span>기타:</span><input type="text" data-other="type"></label><div class="err"></div></div><div class="q" data-q="products"><label class="title" for="f_products">관심 제품 (복수 선택)</label><label class="opt"><input type="checkbox" name="products" value="0"><span>KOOL UP Shower Roll Body Refresh</span></label><label class="opt"><input type="checkbox" name="products" value="1"><span>KOOL UP Shower Roll Body Refresh (Sample)</span></label><label class="opt"><input type="checkbox" name="products" value="__other"><span>기타:</span><input type="text" data-other="products"></label><div class="err"></div></div><div class="q" data-q="qty"><label class="title" for="f_qty">예상 주문 수량</label><p class="help">단위: 개(pcs)</p><input id="f_qty" name="qty" type="number" min="0"><div class="err"></div></div><div class="q" data-q="incoterms"><label class="title" for="f_incoterms">희망 거래 조건 (Incoterms)</label><label class="opt"><input type="radio" name="incoterms" value="0"><span>EXW</span></label><label class="opt"><input type="radio" name="incoterms" value="1"><span>FOB</span></label><label class="opt"><input type="radio" name="incoterms" value="2"><span>CIF</span></label><label class="opt"><input type="radio" name="incoterms" value="3"><span>DDP</span></label><label class="opt"><input type="radio" name="incoterms" value="4"><span>상담 필요</span></label><div class="err"></div></div><div class="q" data-q="date"><label class="title" for="f_date">희망 납기일</label><input id="f_date" name="date" type="date"><div class="err"></div></div><div class="q" data-q="message"><label class="title" for="f_message">문의 내용<span class="req">*</span></label><p class="help">필요한 사양, 포장, 인증 요구사항 등을 알려 주세요.</p><textarea id="f_message" name="message"></textarea><div class="err"></div></div><div class="q" data-q="consent"><label class="title" for="f_consent">개인정보 수집·이용 동의<span class="req">*</span></label><label class="opt"><input type="checkbox" name="consent" value="0"><span>문의 응대를 위한 개인정보 수집·이용에 동의합니다.</span></label><div class="err"></div></div><div class="form-foot"><button class="btn" type="submit" id="submitBtn">제출하기</button>
+      <button class="btn-reset" type="reset">양식 지우기</button></div>
+      <p class="err" id="sendErr" style="padding:0 18px 18px"></p></form>
+          <div id="formDone" class="done" hidden="">
+            <div class="check">✓</div>
+            <h3 data-i18n="form.doneTitle">문의가 접수되었습니다</h3>
+            <p class="muted" data-i18n="form.doneDesc">감사합니다. 담당자가 확인 후 연락드리겠습니다.</p>
+            <button class="btn sm" type="button" id="againBtn" data-i18n="form.again">다른 문의 작성</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand" data-bind="company.name">에어레브</div>
+        <div class="flist"><span data-bind="company.tagline">Gentle on skin. Considered in every detail.</span><span data-bind="company.eyebrow">Cosmetic · 대한민국</span></div>
+      </div>
+      <div>
+        <div class="fhead" data-i18n="footer.explore">둘러보기</div>
+        <nav class="flist">
+          <a href="#about" data-i18n="nav.about">회사 소개</a>
+          <a href="#products" data-i18n="nav.products">제품</a>
+          <a href="#company" data-i18n="cert.title">인증 및 시험 성적</a>
+          <a href="#faq">FAQ</a>
+          <a href="#inquiry" data-i18n="nav.inquiry">견적 문의</a>
+        </nav>
+      </div>
+      <div>
+        <div class="fhead" data-i18n="info.title">회사 정보</div>
+        <div class="flist" id="footContact"><a href="mailto:c6079@honestm.co.kr">c6079@honestm.co.kr</a><a href="tel:023358008">02-335-8008</a><span>경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129</span></div>
+      </div>
+    </div>
+    <div class="legal">© <span id="year">2026</span> <span data-bind="company.name">에어레브</span>.</div>
+  </div>
+</footer>
+
+<!-- product detail modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="scrim" data-close=""></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="close" type="button" data-close="" aria-label="close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   SITE CONTENT — 이 블록만 수정하면 사이트 전체 내용이 바뀝니다.
+   Text can be a string or { ko: "...", en: "..." }.
+   ===================================================================== */
+const IMG = "";
+const CERTS = [
+  ["ISO 9001:2015", { en: "Global Systems Register", ko: "국제 인증기관" }],
+  ["OEKO-TEX® STANDARD 100", "OEKO-TEX®"],
+  ["ECOCERT: Organic Bamboo Raw Material", "ECOCERT"],
+  ["Fabric Basic Quality Test", "FITI Testing & Research Institute"],
+  ["Cooling Performance Test: Contact & Absorption Cooling", "FITI Testing & Research Institute"],
+  ["Safety Test Report: Hypochlorous Acid Solution Applied to Wet Towel Base", "Korea Testing Certification Institute (KTC)"],
+  ["Human Patch Test: Primary Skin Irritation", "Global Cosmeceutical Center by Semyung University"],
+  ["Material Safety Data Sheet (MSDS)", ""],
+  ["Cosmetics Manufacturing Business Registration", "Ministry of Food and Drug Safety (MFDS), Republic of Korea"],
+  ["Cosmetics Responsible Seller Registration", "Ministry of Food and Drug Safety (MFDS), Republic of Korea"]
+];
+const KOOLUP_DESC = `A full-body shower in one sheet, no water needed
+
+1. Mildly Acidic pH5 HOCl Water
+- Skin-friendly, colorless and odorless hypochlorous acid (HOCl) water, produced by electrolyzing water (H₂O) and salt (NaCl)
+- Close to the pH 5.5 of human skin
+- Patented 4-step purification delivers skin-friendly pH5 HOCl water
+
+2. Cleansing and Moisturizing with 6 Nature-Derived Ingredients
+- Soothing: Heartleaf (Houttuynia cordata), Artemisia capillaris, Witch Hazel
+- Hydrating: Aloe Saponaria, Yuzu, Allantoin
+- Skin hydration increased 1.8x after use (32% → 60%)
+- Clean formula: free of peppermint, artificial fragrance, and limonene
+
+3. Cooling and Odor Care with Natural Essential Oils
+- Plant-based cooling ingredients, plus herbal and phytoncide oils, refresh the skin after sweating
+- Hinoki (cypress) phytoncide, Indian tea tree, and Tasmanian lavender help control sweat odor at the source rather than masking it with fragrance
+
+4. Full-Body Care in a Compact Roll
+- Extra-large 670×320mm sheet, individually wrapped for easy carrying in a bag or pocket
+
+5. Fabric Made for Skin Contact
+- Eco-friendly: 0% microplastics, biodegradable
+- Skin-friendly: soft rayon and bamboo fibers
+- Durable: 50:50 fiber blend resists tearing
+- Functional: absorbent, stretchy, and breathable
+
+Whenever a Shower Is Out of Reach
+- After Sports & Golf: Ideal for golf courses, where players sweat heavily and can rarely shower right after a round. Our product has already been supplied to golf courses in Korea.
+- Postpartum & Care: A gentle, skin-care wet towel for women in their 20s and 30s who find it hard to shower after childbirth. Dermatologically low-irritation tested.
+- Camping & Trekking: Full-body freshening where water is limited.
+- Makeup & Sunscreen Removal: Cleanses the face and body with a single sheet.`;
+const KOOLUP_SPECS = [
+  [{ en: "Product Name", ko: "제품명" }, "KOOL UP Shower Roll Body Refresh (쿨업 샤워롤 바디 리프레쉬)"],
+  [{ en: "Brand", ko: "브랜드" }, "Airreve (에어레브)"],
+  [{ en: "Product Type", ko: "제품 유형" }, "Cosmetics (body cleansing and moisturizing care)"],
+  [{ en: "Sheet Size", ko: "시트 규격" }, "670 × 320mm, roll type"],
+  [{ en: "Fabric", ko: "원단" }, "Natural spunlace cross-hemp embossed, 90gsm"],
+  [{ en: "Packaging", ko: "포장" }, "Individually Wrapped / 3-Side Seal Pouch (4 pcs, 260 × 230mm)"],
+  [{ en: "Country of Origin", ko: "원산지" }, "Made in Korea"]
+];
+
+const SITE = {
+  company: {
+    name: { ko: "에어레브", en: "Airreve" },
+    eyebrow: { ko: "Cosmetic · 대한민국", en: "Cosmetic · Republic of Korea" },
+    tagline: "Gentle on skin. Considered in every detail.",
+    about: "We create lifestyle essentials for everyday comfort, from bedding to body care, with skin-friendly materials and natural-origin ingredients.\n\nWith a trusted network of Korean manufacturers, OEM·ODM inquiries are welcome.",
+    email: "c6079@honestm.co.kr",
+    phone: "02-335-8008",
+    phoneIntl: "+82 2-335-8008",
+    whatsapp: "+82 10 6221 4199",
+    linkedin: "https://www.linkedin.com/in/hyejun-lee-329954429",
+    website: "http://www.honestm.co.kr/",
+    address: { ko: "경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129", en: "182, Hyanggi-ro, Deogyang-gu, Goyang-si, Gyeonggi-do, Republic of Korea" }
+  },
+  stats: [
+    { value: "2018", label: { ko: "회사 설립", en: "Established" } },
+    { value: { ko: "3천만 개", en: "30M units" }, label: { ko: "연간 생산 능력", en: "Annual capacity" } },
+    { value: "10", label: { ko: "인증 · 시험 성적", en: "Certifications & tests" } },
+    { value: "8", label: { ko: "판매 국가", en: "Sales countries" } }
+  ],
+  facts: [
+    [{ ko: "업종", en: "Industry" }, "Cosmetic"],
+    [{ ko: "국가", en: "Country" }, { ko: "대한민국", en: "Republic of Korea" }],
+    [{ ko: "설립", en: "Established" }, "2018"],
+    [{ ko: "생산 능력", en: "Capacity" }, "30 million units / year"],
+    [{ ko: "OEM · ODM", en: "OEM · ODM" }, { ko: "문의 가능", en: "Available" }],
+    [{ ko: "본사", en: "Head office" }, { ko: "경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129", en: "182, Hyanggi-ro, Deogyang-gu, Goyang-si, Gyeonggi-do, Republic of Korea" }]
+  ],
+  certs: CERTS,
+  markets: [
+    ["Shopee", "Singapore, Taiwan, Thailand, Malaysia, Vietnam, Philippines, Mexico"],
+    [{ ko: "한국", en: "Korea" }, "Coupang, Naver / 500+ positive reviews"]
+  ],
+  products: [
+    { id: "koolup", category: "Wet wipes",
+      name: "KOOL UP Shower Roll Body Refresh",
+      summary: { ko: "물 없이 한 장으로 전신 샤워 가능한 샤워롤", en: "Full-body shower roll that allows showering with just one sheet without water" },
+      moq: "30", leadTime: { ko: "2-4 weeks", en: "2-4 weeks" }, origin: "Made in Korea",
+      packaging: "30 sets per carton (120 units)", sample: true, inStock: true, featured: true,
+      images: ["Images/item.png", "Images/detail1.png", "Images/detail2.png", "Images/fabric.png", "Images/ingredients.png", "Images/size.png"],
+      specs: KOOLUP_SPECS, certs: CERTS.map(c => c[0]), desc: KOOLUP_DESC },
+    { id: "koolup-sample", category: "Wet wipes",
+      name: "KOOL UP Shower Roll Body Refresh (Sample)",
+      summary: { ko: "물 없이 한 장으로 전신 샤워 가능한 샤워롤 (샘플)", en: "Full-body shower roll that allows showering with just one sheet without water" },
+      moq: "1", leadTime: "2-4 weeks", origin: "Made in Korea",
+      packaging: "30 sets per carton (120 units)", sample: true, inStock: true,
+      images: ["Images/item.png", "Images/detail1.png", "Images/detail2.png", "Images/fabric.png", "Images/ingredients.png", "Images/size.png"],
+      specs: KOOLUP_SPECS, certs: CERTS.map(c => c[0]), desc: KOOLUP_DESC }
+  ],
+  faq: [
+    { q: { ko: "OEM · ODM 생산이 가능한가요?", en: "Do you offer OEM and ODM production?" },
+      a: { ko: "네. 신뢰할 수 있는 국내 제조사 네트워크를 갖추고 있어 OEM·ODM 문의를 환영합니다. 아래 문의 양식에서 '문의 유형 → OEM / ODM'을 선택해 주세요.",
+           en: "Yes. With a trusted network of Korean manufacturers, OEM·ODM inquiries are welcome. Choose 'OEM / ODM' as the inquiry type in the form below." } },
+    { q: { ko: "MOQ(최소 주문 수량)는 어떻게 되나요?", en: "What is the MOQ?" },
+      a: { ko: "KOOL UP 샤워롤 본품은 30, 샘플은 1부터 주문 가능합니다. 카톤당 30세트(120개) 포장입니다.",
+           en: "KOOL UP Shower Roll: MOQ 30. Sample: MOQ 1. Packed 30 sets per carton (120 units)." } },
+    { q: { ko: "리드타임은 어떻게 되나요?", en: "What is the lead time?" },
+      a: { ko: "통상 2~4주 소요됩니다. 수량과 사양에 따라 달라질 수 있으니 견적 요청 시 희망 납기일을 함께 알려 주세요.",
+           en: "Typically 3–5 weeks, depending on quantity and specification. Please include your desired delivery date in the quote request." } },
+    { q: { ko: "샘플을 받아볼 수 있나요?", en: "Are samples available?" },
+      a: { ko: "네, 샘플 제공이 가능합니다. 문의 유형에서 '샘플 요청'을 선택해 주세요.", en: "Yes, samples are available. Choose 'Request samples' in the inquiry form." } },
+    { q: { ko: "KOOL UP 제품의 간단한 사양을 알려주세요.", en: "Please provide a brief specification of the KOOL UP product." },
+      a: { ko: "670×320mm 대형 롤 타입 시트, 천연 스펀레이스 크로스 헴프 엠보 원단(90gsm), 개별 포장 / 4매입 삼방 파우치(260×230mm)입니다. 제품 카드의 '상세 보기'에서 전체 사양을 확인하세요.",
+           en: "670×320mm roll-type sheet, natural spunlace cross-hemp embossed fabric (90gsm), individually wrapped / 3-side seal pouch of 4 (260×230mm). See 'Details' on the product card for full specs." } }
+  ],
+  /* 문의/견적 폼 문항 — type: text | email | tel | number | date | textarea | radio | checkbox | select
+     options: 선택 보기, allowOther: '기타' 직접 입력, options: "products" → 제품 목록 자동 연결 */
+  form: [
+    { id: "company", type: "text", required: true, label: { ko: "회사명", en: "Company name" } },
+    { id: "name", type: "text", required: true, label: { ko: "담당자 성함 / 직함", en: "Contact name / Title" } },
+    { id: "email", type: "email", required: true, label: { ko: "이메일", en: "Email" } },
+    { id: "phone", type: "tel", required: false, label: { ko: "전화 / WhatsApp", en: "Phone / WhatsApp" } },
+    { id: "country", type: "select", required: true, label: { ko: "국가", en: "Country" },
+      options: ["Korea", "Singapore", "Taiwan", "Thailand", "Malaysia", "Vietnam", "Philippines", "Mexico", "USA", "Japan", "China", "Other"] },
+    { id: "type", type: "radio", required: true, label: { ko: "문의 유형", en: "Inquiry type" },
+      options: [{ ko: "견적 요청", en: "Request a quote" }, { ko: "샘플 요청", en: "Request samples" },
+                { ko: "OEM / ODM", en: "OEM / ODM" }, { ko: "유통 / 대리점", en: "Distribution" }], allowOther: true },
+    { id: "products", type: "checkbox", required: false, label: { ko: "관심 제품 (복수 선택)", en: "Products of interest" },
+      options: "products", allowOther: true },
+    { id: "qty", type: "number", required: false, label: { ko: "예상 주문 수량", en: "Estimated quantity" },
+      help: { ko: "단위: 개(pcs)", en: "Unit: pcs" } },
+    { id: "incoterms", type: "radio", required: false, label: { ko: "희망 거래 조건 (Incoterms)", en: "Preferred Incoterms" },
+      options: ["EXW", "FOB", "CIF", "DDP", { ko: "상담 필요", en: "Need advice" }] },
+    { id: "date", type: "date", required: false, label: { ko: "희망 납기일", en: "Desired delivery date" } },
+    { id: "message", type: "textarea", required: true, label: { ko: "문의 내용", en: "Message" },
+      help: { ko: "필요한 사양, 포장, 인증 요구사항 등을 알려 주세요.", en: "Specs, packaging, certification requirements, etc." } },
+    { id: "consent", type: "checkbox", required: true, label: { ko: "개인정보 수집·이용 동의", en: "Privacy consent" },
+      options: [{ ko: "문의 응대를 위한 개인정보 수집·이용에 동의합니다.", en: "I agree to the use of my information to respond to this inquiry." }] }
+  ],
+  /* 제출 방식: endpoint(Google Apps Script 웹앱 / Formspree 등 URL)가 있으면 JSON POST,
+     비어 있으면 mailto 주소로 메일 작성 창을 엽니다. */
+  submit: { endpoint: "https://script.google.com/macros/s/AKfycbxtbBEUU7uWvpQDPX2-cFhexdyOOVNdKQOym6Fe8IzxERNFDVHpqd6XlBILCFv__l1hug/exec", mailto: "021022jenny@naver.com, mine_0419@naver.com" }
+};
+
+const UI = {
+  "nav.about": { ko: "회사 소개", en: "About" },
+  "nav.products": { ko: "제품", en: "Products" },
+  "nav.links": { ko: "관련 링크", en: "Links" },
+  "nav.faq": { ko: "FAQ", en: "FAQ" },
+  "nav.inquiry": { ko: "견적 문의", en: "Get a quote" },
+  "hero.browse": { ko: "제품 둘러보기", en: "Browse products" },
+  "hero.quote": { ko: "견적 문의", en: "Get a quote" },
+  "about.eyebrow": { ko: "회사", en: "Company" },
+  "about.more": { ko: "회사 정보 자세히 보기 →", en: "Read the full profile →" },
+  "cert.eyebrow": { ko: "인증", en: "Certifications" },
+  "cert.title": { ko: "인증 및 시험 성적", en: "Certifications & test reports" },
+  "market.eyebrow": { ko: "수출 시장", en: "Export markets" },
+  "market.title": { ko: "판매 채널", en: "Where we sell" },
+  "info.eyebrow": { ko: "회사 정보", en: "Company" },
+  "info.title": { ko: "회사 정보", en: "Company info" },
+  "products.eyebrow": { ko: "제품", en: "Products" },
+  "products.title": { ko: "제품 라인업", en: "Product lineup" },
+  "products.count": { ko: "총 {n}개 제품", en: "{n} products" },
+  "products.details": { ko: "상세 보기", en: "Details" },
+  "products.quote": { ko: "견적 요청", en: "Request quote" },
+  "products.featured": { ko: "추천", en: "Featured" },
+  "products.sample": { ko: "샘플 가능", en: "Sample available" },
+  "products.stock": { ko: "재고 있음", en: "In stock" },
+  "products.moq": { ko: "최소 주문 수량 (MOQ)", en: "MOQ" },
+  "products.lead": { ko: "리드타임", en: "Lead time" },
+  "products.origin": { ko: "원산지", en: "Origin" },
+  "products.packaging": { ko: "포장", en: "Packaging" },
+  "products.specs": { ko: "제품 사양", en: "Specifications" },
+  "products.desc": { ko: "제품 설명", en: "Description" },
+  "products.certs": { ko: "인증", en: "Certifications" },
+  "links.eyebrow": { ko: "링크", en: "Links" },
+  "links.title": { ko: "회사 관련 링크", en: "Company links" },
+  "faq.title": { ko: "자주 묻는 질문", en: "Frequently asked questions" },
+  "form.eyebrow": { ko: "견적 문의", en: "Get a quote" },
+  "form.title": { ko: "궁금한 점과 견적 요청.", en: "Questions and quote requests." },
+  "form.desc": { ko: "필요한 내용을 알려 주시면 정보나 견적으로 답해 드립니다.", en: "Tell us what you need, and we will provide the information or a quote." },
+  "form.other": { ko: "기타:", en: "Other:" },
+  "form.choose": { ko: "선택하세요", en: "Choose" },
+  "form.errRequired": { ko: "필수 문항입니다.", en: "This is a required question." },
+  "form.errEmail": { ko: "올바른 이메일 주소를 입력하세요.", en: "Enter a valid email address." },
+  "form.submit": { ko: "제출하기", en: "Submit" },
+  "form.reset": { ko: "양식 지우기", en: "Clear form" },
+  "form.sending": { ko: "전송 중…", en: "Sending…" },
+  "form.failed": { ko: "전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요.", en: "Submission failed. Please try again or email us." },
+  "form.doneTitle": { ko: "문의가 접수되었습니다", en: "Your inquiry has been submitted" },
+  "form.doneDesc": { ko: "감사합니다. 담당자가 확인 후 연락드리겠습니다.", en: "Thank you. Our team will get back to you shortly." },
+  "form.again": { ko: "다른 문의 작성", en: "Submit another inquiry" },
+  "footer.explore": { ko: "둘러보기", en: "Explore" },
+  "c.email": { ko: "이메일", en: "Email" },
+  "c.phone": { ko: "전화", en: "Phone" },
+  "c.address": { ko: "주소", en: "Address" },
+  "c.website": { ko: "회사 홈페이지", en: "Website" }
+};
+
+/* ===================== helpers ===================== */
+let lang = (() => { try { return localStorage.getItem("lang") || "ko"; } catch { return "ko"; } })();
+const t = v => v == null ? "" : typeof v === "object" ? (v[lang] ?? v.en ?? v.ko ?? "") : String(v);
+const u = (k, vars) => t(UI[k]).replace(/\{(\w+)\}/g, (_, x) => vars?.[x] ?? "");
+const get = path => path.split(".").reduce((o, k) => o?.[k], SITE);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const $ = id => document.getElementById(id);
+const C = SITE.company;
+const ICON = {
+  mail: '<path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/>',
+  wa: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.3 1.8 1.7 3.3 3.5 3.8l1-1 2 .8v1.4c-3.6.3-6.9-3-6.6-6.6H10l.8 2z"/>',
+  in: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+  web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  tel: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+  pin: '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>'
+};
+const svg = k => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
+const img = p => p.startsWith("http") ? p : IMG + p;
+
+/* ===================== render ===================== */
+function renderStatic() {
+  document.documentElement.lang = lang;
+  document.title = `${t(C.name)} ${lang === "ko" ? "Airreve" : "에어레브"}`;
+  document.querySelectorAll("[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === lang));
+  document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = u(el.dataset.i18n));
+  document.querySelectorAll("[data-bind]").forEach(el => el.textContent = t(get(el.dataset.bind)));
+  $("year").textContent = new Date().getFullYear();
+
+  $("stats").innerHTML = SITE.stats.map(s => `<div class="stat"><b>${esc(t(s.value))}</b><span>${esc(t(s.label))}</span></div>`).join("");
+  $("certs").innerHTML = SITE.certs.map(([n, by]) => `<div class="cert"><b>${esc(n)}</b>${by ? `<span>${esc(t(by))}</span>` : ""}</div>`).join("");
+  $("markets").innerHTML = SITE.markets.map(([k, v]) => `<div class="market"><b>${esc(t(k))}</b><span>${esc(t(v))}</span></div>`).join("");
+  $("facts").innerHTML = SITE.facts.map(([k, v]) => `<div class="market"><b>${esc(t(k))}</b><span>${esc(t(v))}</span></div>`).join("");
+
+  const links = [
+    ["mail", u("c.email"), C.email, `mailto:${C.email}`],
+    ["wa", "WhatsApp", C.whatsapp, `https://wa.me/${C.whatsapp.replace(/\D/g, "")}`],
+    ["in", "LinkedIn", "hyejun-lee-329954429", C.linkedin],
+    ["web", u("c.website"), "www.honestm.co.kr", C.website],
+    ["tel", u("c.phone"), lang === "ko" ? C.phone : C.phoneIntl, `tel:${C.phone.replace(/\D/g, "")}`],
+    ["pin", u("c.address"), t(C.address), `https://maps.google.com/?q=${encodeURIComponent(C.address.ko)}`]
+  ];
+  $("linkList").innerHTML = links.map(([ic, title, sub, href]) =>
+    `<a class="link" href="${esc(href)}" target="_blank" rel="noopener"><span class="ic">${svg(ic)}</span><span><b>${esc(title)}</b><small>${esc(sub)}</small></span></a>`).join("");
+  $("contactList").innerHTML = links.slice(0, 3).concat([links[4]]).map(([, title, sub, href]) =>
+    `<div><b>${esc(title)}</b><a href="${esc(href)}" target="_blank" rel="noopener">${esc(sub)}</a></div>`).join("");
+  $("footContact").innerHTML = `<a href="mailto:${C.email}">${C.email}</a><a href="tel:${C.phone.replace(/\D/g, "")}">${esc(lang === "ko" ? C.phone : C.phoneIntl)}</a><span>${esc(t(C.address))}</span>`;
+
+  $("faqList").innerHTML = SITE.faq.map(f => `<details><summary>${esc(t(f.q))}</summary><p>${esc(t(f.a))}</p></details>`).join("");
+  renderProducts();
+}
+
+function renderProducts() {
+  $("pcount").textContent = u("products.count", { n: SITE.products.length });
+  $("productList").innerHTML = SITE.products.map((p, i) => `
+    <article class="pcard" data-open="${i}">
+      <div class="media"><img src="${esc(img(p.images[0]))}" alt="${esc(t(p.name))}" loading="lazy"></div>
+      <div class="tags">${p.featured ? `<span class="tag">${esc(u("products.featured"))}</span>` : ""}<span class="tag">${esc(p.category)}</span>${p.sample ? `<span class="tag ok">${esc(u("products.sample"))}</span>` : ""}</div>
+      <h3>${esc(t(p.name))}</h3>
+      <p>${esc(t(p.summary))}</p>
+      <div class="pspec">
+        <span>${esc(u("products.moq"))}<b>${esc(t(p.moq))}</b></span>
+        <span>${esc(u("products.lead"))}<b>${esc(t(p.leadTime))}</b></span>
+        <span>${esc(u("products.origin"))}<b>${esc(t(p.origin))}</b></span>
+      </div>
+      <div class="acts">
+        <button class="btn sm" type="button" data-quote="${i}">${esc(u("products.quote"))}</button>
+        <button class="btn sm ghost" type="button" data-open="${i}">${esc(u("products.details"))}</button>
+      </div>
+    </article>`).join("");
+}
+
+function openProduct(i) {
+  const p = SITE.products[i];
+  $("modalBody").innerHTML = `
+    <div class="detail">
+      <div>
+        <div class="gal-main"><img id="galMain" src="${esc(img(p.images[0]))}" alt="${esc(t(p.name))}"></div>
+        <div class="thumbs">${p.images.map((s, k) => `<button type="button" class="${k ? "" : "on"}" data-img="${esc(img(s))}"><img src="${esc(img(s))}" alt=""></button>`).join("")}</div>
+      </div>
+      <div class="info">
+        <div class="tags"><span class="tag">${esc(p.category)}</span>${p.inStock ? `<span class="tag ok">${esc(u("products.stock"))}</span>` : ""}${p.sample ? `<span class="tag ok">${esc(u("products.sample"))}</span>` : ""}</div>
+        <h2 id="mTitle">${esc(t(p.name))}</h2>
+        <p class="muted" style="margin:0">${esc(t(p.summary))}</p>
+        <div class="terms">
+          ${[["products.moq", p.moq], ["products.lead", p.leadTime], ["products.origin", p.origin], ["products.packaging", p.packaging]]
+            .map(([k, v]) => `<div class="term"><span>${esc(u(k))}</span><b>${esc(t(v))}</b></div>`).join("")}
+        </div>
+        <div><button class="btn" type="button" data-quote="${i}">${esc(u("products.quote"))}</button></div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <h3>${esc(u("products.specs"))}</h3>
+      <table class="spec-table"><tbody>${p.specs.map(([k, v]) => `<tr><th>${esc(t(k))}</th><td>${esc(t(v))}</td></tr>`).join("")}</tbody></table>
+      <h3>${esc(u("products.certs"))}</h3>
+      <div class="chips">${p.certs.map(c => `<span class="tag">${esc(c)}</span>`).join("")}</div>
+      <h3>${esc(u("products.desc"))}</h3>
+      <div class="desc">${esc(t(p.desc))}</div>
+    </div>`;
+  $("modal").classList.add("open");
+  $("modal").setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  $("modal").querySelector(".panel").scrollTop = 0;
+}
+function closeModal() {
+  $("modal").classList.remove("open");
+  $("modal").setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+/* ===================== form ===================== */
+const optionsOf = q => q.options === "products" ? SITE.products.map(p => t(p.name)) : (q.options || []).map(t);
+
+function renderForm() {
+  const saved = collect(true);
+  const form = $("inqForm");
+  form.innerHTML = SITE.form.map(q => {
+    const id = "f_" + q.id, req = q.required ? `<span class="req">*</span>` : "";
+    let field;
+    if (["text", "email", "tel", "number", "date"].includes(q.type))
+      field = `<input id="${id}" name="${q.id}" type="${q.type}"${q.type === "number" ? ' min="0"' : ""}>`;
+    else if (q.type === "textarea") field = `<textarea id="${id}" name="${q.id}"></textarea>`;
+    else if (q.type === "select")
+      field = `<select id="${id}" name="${q.id}"><option value="">${esc(u("form.choose"))}</option>${optionsOf(q).map(o => `<option>${esc(o)}</option>`).join("")}</select>`;
+    else {
+      const kind = q.type === "radio" ? "radio" : "checkbox";
+      field = optionsOf(q).map((o, i) => `<label class="opt"><input type="${kind}" name="${q.id}" value="${i}"><span>${esc(o)}</span></label>`).join("")
+        + (q.allowOther ? `<label class="opt"><input type="${kind}" name="${q.id}" value="__other"><span>${esc(u("form.other"))}</span><input type="text" data-other="${q.id}"></label>` : "");
+    }
+    return `<div class="q" data-q="${q.id}"><label class="title" for="${id}">${esc(t(q.label))}${req}</label>${q.help ? `<p class="help">${esc(t(q.help))}</p>` : ""}${field}<div class="err"></div></div>`;
+  }).join("") + `<div class="form-foot"><button class="btn" type="submit" id="submitBtn">${esc(u("form.submit"))}</button>
+      <button class="btn-reset" type="reset">${esc(u("form.reset"))}</button></div>
+      <p class="err" id="sendErr" style="padding:0 18px 18px"></p>`;
+  form.querySelectorAll("[data-other]").forEach(inp => inp.addEventListener("input", () => {
+    if (inp.value) form.querySelector(`input[name="${inp.dataset.other}"][value="__other"]`).checked = true;
+  }));
+  restore(saved);
+}
+
+function collect(raw) {
+  const form = $("inqForm"), out = {};
+  if (!form.elements.length) return out;
+  for (const q of SITE.form) {
+    if (["radio", "checkbox"].includes(q.type)) {
+      const vals = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i => {
+        if (i.value !== "__other") return raw ? i.value : optionsOf(q)[+i.value];
+        const o = form.querySelector(`[data-other="${q.id}"]`).value.trim();
+        return raw ? "__other:" + o : (o ? `${u("form.other")} ${o}` : "");
+      }).filter(Boolean);
+      out[q.id] = q.type === "radio" ? (vals[0] || "") : vals;
+    } else out[q.id] = (form.elements[q.id]?.value || "").trim();
+  }
+  return out;
+}
+
+function restore(data) {
+  const form = $("inqForm");
+  for (const [k, v] of Object.entries(data || {})) {
+    [].concat(v).forEach(val => {
+      if (val.startsWith?.("__other:")) {
+        const box = form.querySelector(`input[name="${k}"][value="__other"]`);
+        if (box) { box.checked = true; form.querySelector(`[data-other="${k}"]`).value = val.slice(8); }
+        return;
+      }
+      const box = form.querySelector(`input[name="${k}"][value="${CSS.escape(String(val))}"]`);
+      if (box) box.checked = true;
+      else if (form.elements[k] && !Array.isArray(v)) form.elements[k].value = val;
+    });
+  }
+}
+
+function validate(data) {
+  let first = null;
+  for (const q of SITE.form) {
+    const box = document.querySelector(`[data-q="${q.id}"]`), v = data[q.id];
+    let msg = "";
+    if (q.required && (!v || (Array.isArray(v) && !v.length))) msg = u("form.errRequired");
+    else if (q.type === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = u("form.errEmail");
+    box.classList.toggle("invalid", !!msg);
+    box.querySelector(".err").textContent = msg;
+    if (msg && !first) first = box;
+  }
+  if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+  return !first;
+}
+
+async function onSubmit(e) {
+  e.preventDefault();
+  const data = collect(false), errEl = $("sendErr");
+  errEl.style.display = "none";
+  if (!validate(data)) return;
+  const btn = $("submitBtn");
+  btn.disabled = true; btn.textContent = u("form.sending");
+  try {
+    if (SITE.submit.endpoint) {
+      const res = await fetch(SITE.submit.endpoint, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ submittedAt: new Date().toISOString(), lang, ...data })
+      });
+      if (!res.ok && res.type !== "opaque") throw new Error(res.status);
+    } else {
+      const body = SITE.form.map(q => `■ ${t(q.label)}\n${[].concat(data[q.id] || "-").join(", ") || "-"}`).join("\n\n");
+      const subject = `[B2B Inquiry] ${data.company} - ${data.type}`;
+      location.href = `mailto:${SITE.submit.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+    $("inqForm").hidden = true;
+    $("formDone").hidden = false;
+    $("inquiry").scrollIntoView({ behavior: "smooth" });
+  } catch {
+    errEl.textContent = u("form.failed"); errEl.style.display = "block";
+  } finally {
+    btn.disabled = false; btn.textContent = u("form.submit");
+  }
+}
+
+function quoteProduct(i) {
+  closeModal();
+  if ($("inqForm").hidden) $("againBtn").click();
+  const box = document.querySelector(`input[name="products"][value="${i}"]`);
+  if (box) box.checked = true;
+  const type = document.querySelector('input[name="type"][value="0"]');
+  if (type && !document.querySelector('input[name="type"]:checked')) type.checked = true;
+  $("inquiry").scrollIntoView({ behavior: "smooth" });
+}
+
+/* ===================== events ===================== */
+document.addEventListener("click", e => {
+  const q = e.target.closest("[data-quote]");
+  if (q) { e.stopPropagation(); return quoteProduct(+q.dataset.quote); }
+  const o = e.target.closest("[data-open]");
+  if (o) return openProduct(+o.dataset.open);
+  if (e.target.closest("[data-close]")) return closeModal();
+  const th = e.target.closest("[data-img]");
+  if (th) {
+    $("galMain").src = th.dataset.img;
+    th.parentElement.querySelectorAll("button").forEach(b => b.classList.toggle("on", b === th));
+  }
+  const lb = e.target.closest("[data-lang]");
+  if (lb && lb.dataset.lang !== lang) {
+    lang = lb.dataset.lang;
+    try { localStorage.setItem("lang", lang); } catch {}
+    renderStatic(); renderForm();
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+$("inqForm").addEventListener("submit", onSubmit);
+$("inqForm").addEventListener("input", e => e.target.closest(".q")?.classList.remove("invalid"));
+$("inqForm").addEventListener("reset", () => setTimeout(() => document.querySelectorAll(".q.invalid").forEach(b => b.classList.remove("invalid"))));
+$("againBtn").onclick = () => { $("inqForm").reset(); $("inqForm").hidden = false; $("formDone").hidden = true; };
+
+renderStatic();
+renderForm();
+</script>
+
+
+</body></html>
