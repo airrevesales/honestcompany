@@ -447,8 +447,8 @@ Whenever a Shower Is Out of Reach
 - Camping & Trekking: Full-body freshening where water is limited.
 - Makeup & Sunscreen Removal: Cleanses the face and body with a single sheet.`;
 const KOOLUP_SPECS = [
-  [{ en: "Product Name", ko: "제품명" }, "KOOL UP Shower Roll Body Refresh (쿨업 샤워롤 바디 리프레쉬)"],
-  [{ en: "Brand", ko: "브랜드" }, "Airreve (에어레브)"],
+  [{ en: "Product Name", ko: "제품명" }, { en: "KOOL UP Shower Roll Body Refresh", ko: "KOOL UP Shower Roll Body Refresh (쿨업 샤워롤 바디 리프레쉬)" }],
+  [{ en: "Brand", ko: "브랜드" }, { en: "Airreve", ko: "Airreve (에어레브)" }],
   [{ en: "Product Type", ko: "제품 유형" }, "Cosmetics (body cleansing and moisturizing care)"],
   [{ en: "Sheet Size", ko: "시트 규격" }, "670 × 320mm, roll type"],
   [{ en: "Fabric", ko: "원단" }, "Natural spunlace cross-hemp embossed, 90gsm"],
@@ -627,7 +627,7 @@ const img = p => p.startsWith("http") ? p : IMG + p;
 /* ===================== render ===================== */
 function renderStatic() {
   document.documentElement.lang = lang;
-  document.title = `${t(C.name)} ${lang === "ko" ? "Airreve" : "에어레브"}`;
+  document.title = lang === "ko" ? "에어레브 Airreve" : "Airreve";
   document.querySelectorAll("[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === lang));
   document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = u(el.dataset.i18n));
   document.querySelectorAll("[data-bind]").forEach(el => el.textContent = t(get(el.dataset.bind)));
