@@ -218,7 +218,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2168135630461627');
 fbq('track', 'PageView');
-fbq('track', 'Lead');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2168135630461627&ev=PageView&noscript=1"
@@ -825,6 +824,7 @@ async function onSubmit(e) {
       const subject = `[B2B Inquiry] ${data.company} - ${data.type}`;
       location.href = `mailto:${SITE.submit.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
+    if (typeof fbq === "function") fbq('track', 'Lead');
     $("inqForm").hidden = true;
     $("formDone").hidden = false;
     $("inquiry").scrollIntoView({ behavior: "smooth" });
