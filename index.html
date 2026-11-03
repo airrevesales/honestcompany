@@ -115,6 +115,14 @@ h3{font-size:20px;line-height:1.3}
 .cert{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:6px}
 .cert b{font-weight:500;font-size:15px}
 .cert span{font-size:12px;color:var(--muted)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.review img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin:-4px 0 4px}
+.review-tag{display:inline-flex;align-self:flex-start;padding:6px 10px;border-radius:999px;background:var(--wash);color:var(--accent-deep);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.review .stars{color:#f2a900;letter-spacing:2px;font-size:16px}
+.review h3{font-size:18px;font-weight:600}
+.review p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+@media(max-width:800px){.review-grid{grid-template-columns:1fr}}
 .market{display:grid;grid-template-columns:160px 1fr;gap:16px;border-top:1px solid var(--line);padding:16px 0}
 .market:last-child{border-bottom:1px solid var(--line)}
 .market b{font-weight:600}
@@ -449,6 +457,11 @@ const CERTS = [
   ["Cosmetics Manufacturing Business Registration", "Ministry of Food and Drug Safety (MFDS), Republic of Korea"],
   ["Cosmetics Responsible Seller Registration", "Ministry of Food and Drug Safety (MFDS), Republic of Korea"]
 ];
+const REVIEWS = [
+  { image: "Images/review-workout.png", tag: "WORKOUT", title: "After a Workout", quote: "After my evening run or the gym, I often don't have time to shower. Wiping down with this cooling sheet keeps me feeling fresh and comfortable on the way. I carry one or two in my bag every day now." },
+  { image: "Images/review-on-the-go.png", tag: "ON THE GO", title: "Better Than Carrying a Shower Kit", quote: "Bringing a shower kit and a towel, then carrying everything back wet, is a hassle. The Airev Cool-Up Shower Roll is single-use, so I just grab one, freshen up, and head home." },
+  { image: "Images/review-postpartum.png", tag: "POSTPARTUM", title: "For My Hospital Bag", quote: "While packing for my postpartum care center, I wanted to avoid anything bulky. These single-use rolls were compact and easy to use, so they were a great fit." }
+];
 const KOOLUP_DESC = `A full-body shower in one sheet, no water needed
 
 1. Mildly Acidic pH5 HOCl Water
@@ -519,6 +532,7 @@ const SITE = {
     [{ ko: "본사", en: "Head office" }, { ko: "경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129", en: "182, Hyanggi-ro, Deogyang-gu, Goyang-si, Gyeonggi-do, Republic of Korea" }]
   ],
   certs: CERTS,
+  reviews: REVIEWS,
   markets: [
     ["Shopee", "Singapore, Taiwan, Thailand, Malaysia, Vietnam, Philippines, Mexico"],
     [{ ko: "한국", en: "Korea" }, "Coupang, Naver / 300+ positive reviews"]
@@ -595,8 +609,8 @@ const UI = {
   "hero.catalog": { ko: "카탈로그 다운로드", en: "Download catalog" },
   "about.eyebrow": { ko: "회사", en: "Company" },
   "about.more": { ko: "회사 정보 자세히 보기 →", en: "Read the full profile →" },
-  "cert.eyebrow": { ko: "인증", en: "Certifications" },
-  "cert.title": { ko: "인증 및 시험 성적", en: "Certifications & test reports" },
+  "cert.eyebrow": { ko: "인증", en: "Real Reviews" },
+  "cert.title": { ko: "인증 및 시험 성적", en: "After the gym, on the road, in the hospital bag." },
   "market.eyebrow": { ko: "수출 시장", en: "Export markets" },
   "market.title": { ko: "판매 채널", en: "Where we sell" },
   "info.eyebrow": { ko: "회사 정보", en: "Company" },
@@ -669,7 +683,13 @@ function renderStatic() {
   $("year").textContent = new Date().getFullYear();
 
   $("stats").innerHTML = SITE.stats.map(s => `<div class="stat"><b>${esc(t(s.value))}</b><span>${esc(t(s.label))}</span></div>`).join("");
-  $("certs").innerHTML = SITE.certs.map(([n, by]) => `<div class="cert"><b>${esc(n)}</b>${by ? `<span>${esc(t(by))}</span>` : ""}</div>`).join("");
+  if (lang === "en") {
+    $("certs").className = "review-grid";
+    $("certs").innerHTML = SITE.reviews.map(r => `<article class="review"><img src="${esc(r.image)}" alt="${esc(r.title)}"><span class="review-tag">${esc(r.tag)}</span><div class="stars" aria-label="5 stars">★★★★★</div><h3>${esc(r.title)}</h3><p>“${esc(r.quote)}”</p></article>`).join("");
+  } else {
+    $("certs").className = "cert-grid";
+    $("certs").innerHTML = SITE.certs.map(([n, by]) => `<div class="cert"><b>${esc(n)}</b>${by ? `<span>${esc(t(by))}</span>` : ""}</div>`).join("");
+  }
   $("markets").innerHTML = SITE.markets.map(([k, v]) => `<div class="market"><b>${esc(t(k))}</b><span>${esc(t(v))}</span></div>`).join("");
   $("facts").innerHTML = SITE.facts.map(([k, v]) => `<div class="market"><b>${esc(t(k))}</b><span>${esc(t(v))}</span></div>`).join("");
 
