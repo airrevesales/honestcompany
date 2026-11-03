@@ -129,6 +129,27 @@ h3{font-size:20px;line-height:1.3}
 .market span{color:var(--muted)}
 @media(max-width:600px){.market{grid-template-columns:1fr;gap:4px}}
 
+/* product details / use cases */
+.feature-lead{font-size:19px;font-weight:600;color:var(--charcoal);margin:-16px 0 28px}
+.feature-lead strong{color:var(--accent-deep)}
+.feature-highlights{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;background:var(--wash);border-radius:24px;padding:28px;margin-bottom:24px}
+.feature-highlight{text-align:center}
+.feature-highlight .icon{font-size:28px;color:var(--accent-deep);line-height:1;margin-bottom:12px}
+.feature-highlight .icon svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feature-highlight b{display:block;font-size:18px;margin-bottom:4px}
+.feature-highlight span{font-size:14px;color:var(--muted)}
+.feature-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.feature-card,.use-card{overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px}
+.feature-card__media,.use-card__media{height:180px;background:var(--wash);display:grid;place-items:center;color:var(--muted);font-size:14px}
+.feature-card__body,.use-card__body{padding:22px 24px 26px}
+.feature-card__eyebrow,.use-card__eyebrow{display:block;color:var(--accent-deep);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.feature-card h3,.use-card h3{font-size:22px;font-weight:600;margin-bottom:10px}
+.feature-card p,.use-card p{margin:0;color:var(--muted);line-height:1.65}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pills span{padding:7px 12px;border-radius:999px;background:var(--wash);color:var(--accent-deep);font-size:13px;font-weight:600}
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:850px){.feature-highlights{grid-template-columns:repeat(2,1fr)}.feature-cards,.use-grid{grid-template-columns:1fr}}
+
 /* products */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .pcard{display:flex;flex-direction:column;gap:12px;cursor:pointer}
@@ -317,6 +338,38 @@ With a trusted network of Korean manufacturers, OEM·ODM inquiries are welcome.<
           <h2 style="margin:12px 0 24px" data-i18n="info.title">회사 정보</h2>
           <div id="facts"><div class="market"><b>업종</b><span>Cosmetic</span></div><div class="market"><b>국가</b><span>대한민국</span></div><div class="market"><b>설립</b><span>2018</span></div><div class="market"><b>리드타임</b><span>2-4주</span></div><div class="market"><b>OEM · ODM</b><span>문의 가능</span></div><div class="market"><b>본사</b><span>경기도 고양시 덕양구 향기로182 현대테라타워향동 T201, T202, HL129</span></div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT DETAILS -->
+  <section id="product-details">
+    <div class="wrap">
+      <div class="head"><div><span class="eyebrow">DESCRIPTION</span><h2>Key Features</h2></div></div>
+      <p class="feature-lead">Full-Body Freshness in One Sheet: <strong>No Water, No Rinse</strong></p>
+      <div class="feature-highlights">
+        <div class="feature-highlight"><div class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 4h8M15 4v7l-7 13a3 3 0 0 0 3 4h10a3 3 0 0 0 3-4l-7-13V4M10 21h12"/></svg></div><b>Cleansing</b><span>6 natural ingredients</span></div>
+        <div class="feature-highlight"><div class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 13a8 8 0 0 1 16 0M6 13h20M11 18v3M16 18v5M21 18v3"/></svg></div><b>Antibacterial</b><span>Refreshing natural essential oils</span></div>
+        <div class="feature-highlight"><div class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m16 4 11 4v8c0 7-4.7 10.8-11 12-6.3-1.2-11-5-11-12V8l11-4Z"/><path d="M16 10v9M12 15h8"/></svg></div><b>Low Irritation</b><span>Medical-grade clean water</span></div>
+        <div class="feature-highlight"><div class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M26 5C14 6 8 12 8 21c0 3 2 5 5 5 9 0 14-8 13-21Z"/><path d="M5 27c5-8 10-12 17-16"/></svg></div><b>Eco-Friendly</b><span>100% biodegradable</span></div>
+      </div>
+      <div class="feature-cards">
+        <article class="feature-card"><div class="feature-card__media">[Add photo or illustration]</div><div class="feature-card__body"><span class="feature-card__eyebrow">01 · Active Ingredient</span><h3>Cleansing &amp; antibacterial HOCl water</h3><p>Uses hypochlorous acid (HOCl) ion water, a natural-origin cleansing and antibacterial ingredient. Made by electrolyzing water and salt; colorless and odorless.</p><div class="pills"><span>Natural-origin</span><span>Cleansing</span><span>Antibacterial</span></div></div></article>
+        <article class="feature-card"><div class="feature-card__media">[Add pH scale or test photo]</div><div class="feature-card__body"><span class="feature-card__eyebrow">02 · Formula</span><h3>Mildly acidic, gentle on the skin barrier</h3><p>Helps protect the skin barrier and keeps irritation low. Acidity is adjusted with a natural ingredient instead of citric acid.</p><div class="pills"><span>Skin irritation index 0.00</span><span>pH 5 (skin: about 5.5)</span></div></div></article>
+        <article class="feature-card"><div class="feature-card__media">[Add ingredient photo or EWG certificate]</div><div class="feature-card__body"><span class="feature-card__eyebrow">03 · Ingredients</span><h3>99.9% natural ingredients</h3><p>99.9% of the formula is natural. Every ingredient is rated EWG Green.</p><div class="pills"><span>99.9% natural</span><span>All ingredients EWG Green</span></div></div></article>
+        <article class="feature-card"><div class="feature-card__media">[Add photo or icon set]</div><div class="feature-card__body"><span class="feature-card__eyebrow">04 · Free Of</span><h3>No denatured alcohol, limonene or peppermint</h3><p>Formulated without denatured alcohol, limonene and peppermint.</p><div class="pills"><span>No denatured alcohol</span><span>No limonene</span><span>No peppermint</span></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="use-cases">
+    <div class="wrap">
+      <div class="head"><div><span class="eyebrow">HOW TO USE</span><h2>Where it fits</h2></div></div>
+      <div class="use-grid">
+        <article class="use-card"><div class="use-card__media">[Add photo: golf or sports scene]</div><div class="use-card__body"><span class="use-card__eyebrow">Use Case 1</span><h3>After Sports &amp; Golf</h3><p>Stay fresh on the course. Natural cooling ingredients cool and calm sweaty skin right after your round.</p></div></article>
+        <article class="use-card"><div class="use-card__media">[Add photo: postpartum care scene]</div><div class="use-card__body"><span class="use-card__eyebrow">Use Case 2</span><h3>Postpartum Care</h3><p>A gentle, easy way to stay fresh. Herbal, nature-derived ingredients and skin care soothe and protect sensitive skin.</p></div></article>
+        <article class="use-card"><div class="use-card__media">[Add photo: camping or trekking scene]</div><div class="use-card__body"><span class="use-card__eyebrow">Use Case 3</span><h3>Camping &amp; Trekking</h3><p>One extra-large sheet gives you a full-body freshen-up anywhere, even where washing isn’t possible.</p></div></article>
       </div>
     </div>
   </section>
@@ -912,6 +965,8 @@ $("againBtn").onclick = () => { $("inqForm").reset(); $("inqForm").hidden = fals
 
 renderStatic();
 renderForm();
+const companySection = $("company");
+companySection.before($("product-details"), $("use-cases"));
   /* catalog language picker: close on outside click, Esc, or after choosing */
 (() => {
   const dl = $("catalogDl");
