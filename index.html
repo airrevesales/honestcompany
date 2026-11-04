@@ -193,6 +193,12 @@ h3{font-size:20px;line-height:1.3}
 .spec-table th{color:var(--muted);font-weight:400;white-space:nowrap;width:36%}
 .spec-table td{font-weight:500}
 .desc{white-space:pre-line;color:var(--charcoal);font-size:15px;line-height:24px;max-width:720px}
+.desc{white-space:normal}
+.desc-title{font-size:24px;line-height:1.25;font-weight:700;font-style:italic;color:#4385ed;margin:0 0 24px}
+.desc-section{margin:26px 0 0}
+.desc-section h4{margin:0 0 8px;font-size:16px;color:#4385ed;font-weight:700;line-height:1.35}
+.desc-section p,.desc-section li{margin:0 0 5px;color:var(--charcoal);font-size:15px;line-height:1.55}
+.desc-section ul{margin:4px 0 10px 28px;padding:0}
 .detail-body{margin-top:40px;display:flex;flex-direction:column;gap:20px}
 
 /* links */
@@ -517,37 +523,29 @@ const REVIEWS = [
   { image: "Images/review-on-the-go.png", tag: "ON THE GO", title: "Better Than Carrying a Shower Kit", quote: "Bringing a shower kit and a towel, then carrying everything back wet, is a hassle. The Airev Cool-Up Shower Roll is single-use, so I just grab one, freshen up, and head home." },
   { image: "Images/review-postpartum.png", tag: "POSTPARTUM", title: "For My Hospital Bag", quote: "While packing for my postpartum care center, I wanted to avoid anything bulky. These single-use rolls were compact and easy to use, so they were a great fit." }
 ];
-const KOOLUP_DESC = `A full-body shower in one sheet, no water needed
+const KOOLUP_DESC = `Full-Body Freshness in One Sheet: No Water, No Rinse
 
-1. Mildly Acidic pH5 HOCl Water
-- Skin-friendly, colorless and odorless hypochlorous acid (HOCl) water, produced by electrolyzing water (H₂O) and salt (NaCl)
-- Close to the pH 5.5 of human skin
-- Patented 4-step purification delivers skin-friendly pH5 HOCl water
+1. Mildly Acidic pH 5 HOCl Water
+Colorless, odorless HOCl water made by electrolyzing water and salt.
+Our patented 4-step purification achieves a skin-friendly pH 5, close to skin’s natural pH.
 
-2. Cleansing and Moisturizing with 6 Nature-Derived Ingredients
-- Soothing: Heartleaf (Houttuynia cordata), Artemisia capillaris, Witch Hazel
-- Hydrating: Aloe Saponaria, Yuzu, Allantoin
-- Skin hydration increased 1.8x after use (32% → 60%)
-- Clean formula: free of peppermint, artificial fragrance, and limonene
+2. Cleansing & Moisturizing with 6 Nature-Derived Ingredients
+Soothing: Heartleaf (Houttuynia cordata), Capillary Wormwood (Artemisia capillaris), Witch Hazel
+Hydrating: Aloe Saponaria, Yuzu, Allantoin
+Skin hydration up 1.9x after use (32% → 60%)*
+Free of peppermint, artificial fragrance, and limonene
 
-3. Cooling and Odor Care with Natural Essential Oils
-- Plant-based cooling ingredients, plus herbal and phytoncide oils, refresh the skin after sweating
-- Hinoki (cypress) phytoncide, Indian tea tree, and Tasmanian lavender help control sweat odor at the source rather than masking it with fragrance
+3. Cooling & Odor Care with Natural Essential Oils
+Plant-based cooling oils refresh skin after sweating, while Hinoki phytoncide, Indian tea tree, and Tasmanian lavender control odor at the source instead of masking it with fragrance.
 
-4. Full-Body Care in a Compact Roll
-- Extra-large 670×320mm sheet, individually wrapped for easy carrying in a bag or pocket
+4. Full-Body Size, Pocket-Ready
+Extra-large 670×320mm sheet covers the whole body
+Individually wrapped for easy carrying in a bag or pocket
 
 5. Fabric Made for Skin Contact
-- Eco-friendly: 0% microplastics, biodegradable
-- Skin-friendly: soft rayon and bamboo fibers
-- Durable: 50:50 fiber blend resists tearing
-- Functional: absorbent, stretchy, and breathable
-
-Whenever a Shower Is Out of Reach
-- After Sports & Golf: Ideal for golf courses, where players sweat heavily and can rarely shower right after a round. Our product has already been supplied to golf courses in Korea.
-- Postpartum & Care: A gentle, skin-care wet towel for women in their 20s and 30s who find it hard to shower after childbirth. Dermatologically low-irritation tested.
-- Camping & Trekking: Full-body freshening where water is limited.
-- Makeup & Sunscreen Removal: Cleanses the face and body with a single sheet.`;
+Eco-friendly: 0% microplastics, biodegradable
+Skin-friendly: soft rayon and bamboo fibers
+Durable: 50:50 rayon-bamboo blend resists tearing`;
 const KOOLUP_SPECS = [
   [{ en: "Product Name", ko: "제품명" }, { en: "KOOL UP Shower Roll Body Refresh", ko: "KOOL UP Shower Roll Body Refresh (쿨업 샤워롤 바디 리프레쉬)" }],
   [{ en: "Brand", ko: "브랜드" }, { en: "Airreve", ko: "Airreve (에어레브)" }],
@@ -786,6 +784,34 @@ function renderProducts() {
     </article>`).join("");
 }
 
+function formatDescription(value) {
+  const lines = String(value || '').split('\n');
+  let out = '';
+  let section = null;
+  let listOpen = false;
+  const closeList = () => { if (listOpen) { out += '</ul>'; listOpen = false; } };
+  lines.forEach((line, index) => {
+    const s = line.trim();
+    if (!s) return;
+    if (index === 0) { out += `<h4 class="desc-title">${esc(s)}</h4>`; return; }
+    const heading = s.match(/^(\d+)\.\s+(.*)$/);
+    if (heading) {
+      closeList();
+      if (section !== null) out += '</section>';
+      section = Number(heading[1]);
+      out += `<section class="desc-section"><h4>${esc(heading[2])}</h4>`;
+      return;
+    }
+    const isBulletSection = [2, 4, 5].includes(section);
+    if (isBulletSection) {
+      if (!listOpen) { out += '<ul>'; listOpen = true; }
+      out += `<li>${esc(s)}</li>`;
+    } else out += `<p>${esc(s)}</p>`;
+  });
+  closeList();
+  return out + (section !== null ? '</section>' : '');
+}
+
 function openProduct(i) {
   const p = SITE.products[i];
   $("modalBody").innerHTML = `
@@ -811,7 +837,7 @@ function openProduct(i) {
       <h3>${esc(u("products.certs"))}</h3>
       <div class="chips">${p.certs.map(c => `<span class="tag">${esc(c)}</span>`).join("")}</div>
       <h3>${esc(u("products.desc"))}</h3>
-      <div class="desc">${esc(t(p.desc))}</div>
+      <div class="desc">${formatDescription(t(p.desc))}</div>
     </div>`;
   $("modal").classList.add("open");
   $("modal").setAttribute("aria-hidden", "false");
