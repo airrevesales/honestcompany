@@ -706,7 +706,24 @@
         '</div>';
     }
     var desc = qs('#d-desc');
-    if (desc) desc.textContent = p.description;
+    if (desc) {
+      var lines = String(p.description || '').split('\n');
+      var html = '';
+      lines.forEach(function (line, i) {
+        var safe = esc(line.trim());
+        if (!safe) return;
+        if (i === 0) {
+          html += '<h2 class="d-desc__title">' + safe + '</h2>';
+        } else if (/^\d+\.\s/.test(line)) {
+          var m = line.match(/^(\d+)\.\s+(.*)$/);
+          html += '<h3 class="d-desc__heading"><span class="d-desc__icon d-desc__icon--' + m[1] + '" aria-hidden="true"></span>' + esc(m[2]) + '</h3>';
+        } else {
+          html += '<p class="d-desc__text">' + safe + '</p>';
+        }
+      });
+      desc.className = 'd-description';
+      desc.innerHTML = html;
+    }
 
     var cert = qs('#d-certs');
     if (cert) {
