@@ -187,6 +187,26 @@
     { key: 'Korea', value: 'Coupang, Naver / 500+ positive review' }
   ];
 
+  var DESCRIPTION =
+    'Full-Body Freshness in One Sheet: No Water, No Rinse\n\n' +
+    '1. Mildly Acidic pH 5 HOCl Water\n' +
+    'Colorless, odorless HOCl water made by electrolyzing water and salt.\n' +
+    'Our patented 4-step purification achieves a skin-friendly pH 5, close to skin’s natural pH.\n\n' +
+    '2. Cleansing & Moisturizing with 6 Nature-Derived Ingredients\n' +
+    'Soothing: Heartleaf (Houttuynia cordata), Capillary Wormwood (Artemisia capillaris), Witch Hazel\n' +
+    'Hydrating: Aloe Saponaria, Yuzu, Allantoin\n' +
+    'Skin hydration up 1.9x after use (32% → 60%)*\n' +
+    'Free of peppermint, artificial fragrance, and limonene\n\n' +
+    '3. Cooling & Odor Care with Natural Essential Oils\n' +
+    'Plant-based cooling oils refresh skin after sweating, while Hinoki phytoncide, Indian tea tree, and Tasmanian lavender control odor at the source instead of masking it with fragrance.\n\n' +
+    '4. Full-Body Size, Pocket-Ready\n' +
+    'Extra-large 670×320mm sheet covers the whole body\n' +
+    'Individually wrapped for easy carrying in a bag or pocket\n\n' +
+    '5. Fabric Made for Skin Contact\n' +
+    'Eco-friendly: 0% microplastics, biodegradable\n' +
+    'Skin-friendly: soft rayon and bamboo fibers\n' +
+    'Durable: 50:50 rayon-bamboo blend resists tearing';
+
   /* ---- Catalogue ---- */
   var PRODUCTS = [
     {
@@ -226,7 +246,7 @@
         { key: 'Packaging', value: 'Individually Wrapped / 3-Side Seal Pouch (4 pcs, 260x230mm)' },
         { key: 'Country of origin', value: 'Made in Korea' }
       ],
-      description:
+      descriptionLegacy:
         'Whenever a Shower Is Out of Reach\n' +
         'After Sports & Golf: Ideal for golf courses, where players sweat heavily and can rarely shower right after a round. Our product has already been supplied to golf courses in Korea.\n' +
         'Postpartum & Care: A gentle, skin-care wet towel for women in their 20s and 30s who find it hard to shower after childbirth. Dermatologically low-irritation tested.\n' +
@@ -251,7 +271,8 @@
         'Eco-friendly: 0% microplastics, biodegradable\n' +
         'Skin-friendly: soft rayon and bamboo fibers\n' +
         'Durable: 50:50 fiber blend resists tearing\n' +
-        'Functional: absorbent, stretchy, and breathable'
+        'Functional: absorbent, stretchy, and breathable',
+      description: DESCRIPTION
     },
     {
       id: '55',
@@ -290,7 +311,7 @@
         { key: 'Packaging', value: 'Individually Wrapped / 3-Side Seal Pouch (4 pcs, 260x230mm)' },
         { key: 'Country of origin', value: 'Made in Korea' }
       ],
-      description:
+      descriptionLegacy:
         'A full-body shower in one sheet, no water needed\n\n' +
         '1. Mildly Acidic pH5 HOCl Water\n' +
         'Skin-friendly, colorless and odorless hypochlorous acid (HOCl) water, produced by electrolyzing water (H\u2082O) and salt (NaCl)\n' +
@@ -315,7 +336,8 @@
         'After Sports & Golf: Ideal for golf courses, where players sweat heavily and can rarely shower right after a round. Our product has already been supplied to golf courses in Korea.\n' +
         'Postpartum & Care: A gentle, skin-care wet towel for women in their 20s and 30s who find it hard to shower after childbirth. Dermatologically low-irritation tested.\n' +
         'Camping & Trekking: Full-body freshening where water is limited.\n' +
-        'Makeup & Sunscreen Removal: Cleanses the face and body with a single sheet.'
+        'Makeup & Sunscreen Removal: Cleanses the face and body with a single sheet.',
+      description: DESCRIPTION
     }
   ];
 
